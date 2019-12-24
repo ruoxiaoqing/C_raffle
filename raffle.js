@@ -53,7 +53,7 @@ class Raffle {
             }
             else {
                 plugin_1.tools.Log(this._user.nickname, title, id, raffleAward.body);
-                if (raffleAward.body.code === 400)
+                if (raffleAward.body.code === 400  || raffleAward.body.code === -403)
                     return 'raffleBan';
             }
         }
@@ -73,7 +73,7 @@ class Raffle {
                 plugin_1.tools.Log(this._user.nickname, title, id, lotteryReward.body.data.message);
             else {
                 plugin_1.tools.Log(this._user.nickname, title, id, lotteryReward.body);
-                if (lotteryReward.body.code === 400)
+                if (lotteryReward.body.code === 400 || lotteryReward.body.code === -403)
                     return 'raffleBan';
             }
         }
@@ -93,7 +93,7 @@ class Raffle {
                 plugin_1.tools.Log(this._user.nickname, title, id, '获得', pkLotteryReward.body.data.award_text);
             else {
                 plugin_1.tools.Log(this._user.nickname, title, id, pkLotteryReward.body);
-                if (pkLotteryReward.body.code === 400)
+                if (pkLotteryReward.body.code === 400 || pkLotteryReward.body.code === -403)
                     return 'raffleBan';
             }
         }
