@@ -53,7 +53,7 @@ class Raffle {
             }
             else {
                 plugin_1.tools.Log(this._user.nickname, title, id, raffleAward.body);
-                if (raffleAward.body.code === 400  || raffleAward.body.code === -403)
+                if (raffleAward.body.code === 400 || raffleAward.body.code === -403)
                     return 'raffleBan';
             }
         }
