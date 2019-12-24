@@ -98,7 +98,7 @@ class Raffle {
       }
       else {
         tools.Log(this._user.nickname, title, id, raffleAward.body)
-        if (raffleAward.body.code === 400 || raffleReward.body.code === -403) return 'raffleBan'
+        if (raffleAward.body.code === 400 || raffleAward.body.code === -403) return 'raffleBan'
       }
     }
   }
