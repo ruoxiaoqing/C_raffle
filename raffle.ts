@@ -1,4 +1,3 @@
-import { Options as requestOptions } from 'request'
 import { tools, AppClient } from '../../plugin'
 /**
  * 自动参与抽奖
@@ -74,9 +73,9 @@ class Raffle {
    */
   private async _Raffle(): Promise<'raffleBan' | void> {
     const { id, roomID, title, type } = this._raffleMessage
-    const reward: requestOptions = {
+    const reward: XHRoptions = {
       method: 'POST',
-      uri: 'https://api.live.bilibili.com/gift/v4/smalltv/getAward',
+      uri: 'https://api.live.bilibili.com/xlive/lottery-interface/v4/smalltv/Getaward',
       body: AppClient.signQueryBase(`${this._user.tokenQuery}&raffleId=${id}&roomid=${roomID}&type=${type}`),
       json: true,
       headers: this._user.headers
@@ -98,7 +97,7 @@ class Raffle {
       }
       else {
         tools.Log(this._user.nickname, title, id, raffleAward.body)
-        if (raffleAward.body.code === 400 || raffleAward.body.code === -403) return 'raffleBan'
+        if (raffleAward.body.code === -403) return 'raffleBan'
       }
     }
   }
@@ -110,9 +109,9 @@ class Raffle {
    */
   private async _Lottery(): Promise<'raffleBan' | void> {
     const { id, roomID, title, type } = this._raffleMessage
-    const reward: requestOptions = {
+    const reward: XHRoptions = {
       method: 'POST',
-      uri: 'https://api.live.bilibili.com/lottery/v2/Lottery/join',
+      uri: 'https://api.live.bilibili.com/xlive/lottery-interface/v2/Lottery/join',
       body: AppClient.signQueryBase(`${this._user.tokenQuery}&id=${id}&roomid=${roomID}&type=${type}`),
       json: true,
       headers: this._user.headers
@@ -122,7 +121,7 @@ class Raffle {
       if (lotteryReward.body.code === 0) tools.Log(this._user.nickname, title, id, lotteryReward.body.data.message)
       else {
         tools.Log(this._user.nickname, title, id, lotteryReward.body)
-        if (lotteryReward.body.code === 400 || lotteryReward.body.code === -403) return 'raffleBan'
+        if (lotteryReward.body.code === -403) return 'raffleBan'
       }
     }
   }
@@ -134,7 +133,7 @@ class Raffle {
    */
   private async _PKLottery(): Promise<'raffleBan' | void> {
     const { id, roomID, title } = this._raffleMessage
-    const reward: requestOptions = {
+    const reward: XHRoptions = {
       method: 'POST',
       uri: 'https://api.live.bilibili.com/xlive/lottery-interface/v1/pk/join',
       body: AppClient.signQueryBase(`${this._user.tokenQuery}&id=${id}&roomid=${roomID}`),
@@ -146,7 +145,7 @@ class Raffle {
       if (pkLotteryReward.body.code === 0) tools.Log(this._user.nickname, title, id, '获得', pkLotteryReward.body.data.award_text)
       else {
         tools.Log(this._user.nickname, title, id, pkLotteryReward.body)
-        if (pkLotteryReward.body.code === 400 || pkLotteryReward.body.code === -403) return 'raffleBan'
+        if (pkLotteryReward.body.code === -403) return 'raffleBan'
       }
     }
   }
@@ -158,7 +157,7 @@ class Raffle {
    */
   private async _BeatStorm() {
     const { id, title } = this._raffleMessage
-    const join: requestOptions = {
+    const join: XHRoptions = {
       method: 'POST',
       uri: 'https://api.live.bilibili.com/lottery/v1/Storm/join',
       body: AppClient.signQuery(`${this._user.tokenQuery}&${AppClient.baseQuery}&id=${id}`),
